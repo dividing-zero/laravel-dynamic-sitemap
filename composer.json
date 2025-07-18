@@ -1,0 +1,24 @@
+{
+    "name": "dividing-zero/laravel-dynamic-sitemap",
+    "description": "Automatically generate dynamic sitemaps at runtime using Eloquent Models in Laravel.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "DividingZero\\LaravelDynamicSitemap\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Elan Clarkson",
+            "email": "elanclarkson@gmail.com"
+        }
+    ],
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DividingZero\\LaravelDynamicSitemap\\SitemapServiceProvider"
+            ]
+        }
+    }
+}
