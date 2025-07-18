@@ -20,5 +20,6 @@
                 "DividingZero\\LaravelDynamicSitemap\\SitemapServiceProvider"
             ]
         }
-    }
+    },
+    "license": "MIT"
 }
