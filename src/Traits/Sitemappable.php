@@ -20,7 +20,7 @@ trait Sitemappable
      */
     public function getSitemapModifiedDate(): Carbon
     {
-        return $this->updated_at ?? Carbon::parse(config('dynamic-sitemap.default_modified_date'));
+        return $this->updated_at ?? Carbon::parse(config('sitemap.default_modified_date'));
     }
 
     /**
@@ -31,7 +31,7 @@ trait Sitemappable
     public function getSitemapChangeFreqency(): string
     {
         // Use config default if not overridden
-        return config('dynamic-sitemap.default_change_frequency');
+        return config('sitemap.default_change_frequency');
     }
 
     /**
@@ -42,7 +42,7 @@ trait Sitemappable
     public function getSitemapPriority(): float
     {
         // Use config default if not overridden
-        return config('dynamic-sitemap.default_priority');
+        return config('sitemap.default_priority');
     }
 
     /**

@@ -17,7 +17,7 @@ class SitemapServiceProvider extends ServiceProvider
 
         // Make config publishable via 'config' tag
         $this->publishes([
-            __DIR__.'/../config/dynamic-sitemap.php' => config_path('dynamic-sitemap.php'),
+            __DIR__.'/../config/sitemap.php' => config_path('sitemap.php'),
         ], 'config');
 
         // Make views publishable via 'views' tag
@@ -29,8 +29,8 @@ class SitemapServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/dynamic-sitemap.php',
-            'dynamic-sitemap'
+            __DIR__.'/../config/sitemap.php',
+            'sitemap'
         );
     }
 }

@@ -18,7 +18,7 @@ class SitemapController
     public function index()
     {
         $cacheKey = 'laravel_dynamic-sitemap_sitemap_xml';
-        $cacheSeconds = config('dynamic-sitemap.cache_lifetime');
+        $cacheSeconds = config('sitemap.cache_lifetime');
 
         // Get XML from cache if enabled
         if ($cacheSeconds) {
@@ -78,9 +78,9 @@ class SitemapController
 
             $urls[] = [
                 'loc' => url($route->uri()),
-                'lastmod' => Carbon::parse(config('dynamic-sitemap.default_modified_date'))->toAtomString(),
-                'changefreq' => config('dynamic-sitemap.default_change_frequency'),
-                'priority' => config('dynamic-sitemap.default_priority')
+                'lastmod' => Carbon::parse(config('sitemap.default_modified_date'))->toAtomString(),
+                'changefreq' => config('sitemap.default_change_frequency'),
+                'priority' => config('sitemap.default_priority')
             ];
         }
 
@@ -94,7 +94,7 @@ class SitemapController
      */
     private function generateModelEntries()
     {
-        $models = Config::get('dynamic-sitemap.models', []);
+        $models = config('sitemap.models');
         $urls = [];
 
         // Loop through configured model classes

@@ -18,7 +18,7 @@ Publish the config file:
 php artisan vendor:publish --provider="DividingZero\LaravelDynamicSitemap\SitemapServiceProvider"
 ```
 
-Edit `config/dynamic-sitemap.php` to specify models and settings:
+Edit `config/sitemap.php` to specify models and settings:
 
 ```php
 return [
@@ -122,7 +122,7 @@ class Post extends Model
      */
     public function getSitemapModifiedDate(): Carbon
     {
-        return $this->updated_at ?? Carbon::parse(config('dynamic-sitemap.default_modified_date'));
+        return $this->updated_at ?? Carbon::parse(config('sitemap.default_modified_date'));
     }
 
     /**
@@ -133,7 +133,7 @@ class Post extends Model
     public function getSitemapChangeFreqency(): string
     {
         // Use config default if not overridden
-        return config('dynamic-sitemap.default_change_frequency');
+        return config('sitemap.default_change_frequency');
     }
 
     /**
@@ -144,7 +144,7 @@ class Post extends Model
     public function getSitemapPriority(): float
     {
         // Use config default if not overridden
-        return config('dynamic-sitemap.default_priority');
+        return config('sitemap.default_priority');
     }
 
     /**
