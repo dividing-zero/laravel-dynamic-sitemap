@@ -15,7 +15,7 @@ composer require dividing-zero/laravel-dynamic-sitemap
 Publish the config file:
 
 ```bash
-php artisan vendor:publish --provider="DividingZero\LaravelDynamicSitemap\SitemapServiceProvider"
+php artisan vendor:publish --provider="DividingZero\LaravelDynamicSitemap\SitemapServiceProvider" --tag="config"
 ```
 
 Edit `config/sitemap.php` to specify models and settings:
