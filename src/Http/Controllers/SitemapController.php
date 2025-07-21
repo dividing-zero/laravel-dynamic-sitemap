@@ -41,14 +41,12 @@ class SitemapController
     private function generateSitemapXml()
     {
         // Combine all URLs into a single collection
-        $urls = collect([
-            ...$this->generateRouteEntries(),
-            ...$this->generateModelEntries()
-        ]);
+        $urls = collect(array_merge($this->generateRouteEntries(), $this->generateModelEntries()));
 
         // Sort URLs by last modified date
         $urls = $urls->sortByDesc('lastmod');
 
+        // Render the sitemap
         return view('laravel-dynamic-sitemap::sitemap', ['urls' => $urls])->render();
     }
 
@@ -80,8 +78,10 @@ class SitemapController
                 continue;
             }
 
-            $urls[] = [
-                'loc' => url($route->uri()),
+            $url = url($route->uri());
+
+            $urls[$url] = [
+                'loc' => $url,
                 'lastmod' => Carbon::parse(config('sitemap.default_modified_date'))->toAtomString(),
                 'changefreq' => config('sitemap.default_change_frequency'),
                 'priority' => config('sitemap.default_priority')
@@ -110,8 +110,10 @@ class SitemapController
                 // Loop through each model instance and append URL entries
                 foreach ($items as $item) {
                     if (method_exists($item, 'getSitemapUrl')) {
-                        $urls[] = [
-                            'loc' => $item->getSitemapUrl(),
+                        $url = $item->getSitemapUrl();
+
+                        $urls[$url] = [
+                            'loc' => $url,
                             'lastmod' => $item->getSitemapModifiedDate()->toAtomString(),
                             'changefreq' => $item->getSitemapChangeFreqency(),
                             'priority' => $item->getSitemapPriority(),
