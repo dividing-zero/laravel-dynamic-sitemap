@@ -40,10 +40,14 @@ class SitemapController
      */
     private function generateSitemapXml()
     {
-        $urls = [
+        // Combine all URLs into a single collection
+        $urls = collect([
             ...$this->generateRouteEntries(),
             ...$this->generateModelEntries()
-        ];
+        ]);
+
+        // Sort URLs by last modified date
+        $urls = $urls->sortByDesc('lastmod');
 
         return view('laravel-dynamic-sitemap::sitemap', ['urls' => $urls])->render();
     }
