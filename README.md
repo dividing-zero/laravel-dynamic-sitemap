@@ -169,6 +169,8 @@ To include specific routes in the sitemap, add the `sitemappable` middleware to 
 Route::get('/about', 'PageController@about')->middleware('sitemappable');
 ```
 
+*Note: If any route parameters exist they will be removed, since route parameters cannot be resolved automatically.*
+
 ## Usage
 
 Visit `/sitemap.xml` in your browser to view the generated sitemap.

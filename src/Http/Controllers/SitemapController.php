@@ -78,7 +78,12 @@ class SitemapController
                 continue;
             }
 
-            $url = url($route->uri());
+            // Strip parameters from the URL e.g. 'example/{id}' becomes 'example'
+            $url = preg_replace('/\\{[^}]+\\}/', '', $route->uri());
+            // Remove any double slashes that may result
+            $url = trim(preg_replace('/\\/+/', '/', $url), '/');
+            // Get full URL
+            $url = url($url);
 
             $urls[$url] = [
                 'loc' => $url,
