@@ -58,6 +58,17 @@ return [
     'default_priority' => 0.5,
 
     /*
+	|--------------------------------------------------------------------------
+	| Cache Key
+	|--------------------------------------------------------------------------
+	|
+	| The cache key to use when caching the generated sitemap.
+	| This helps improve performance by avoiding frequent regeneration.
+	|
+	|*/
+    'cache_key' => 'laravel-dynamic-sitemap-xml',
+
+    /*
     |--------------------------------------------------------------------------
     | Cache Lifetime
     |--------------------------------------------------------------------------

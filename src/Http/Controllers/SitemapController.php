@@ -2,7 +2,6 @@
 
 namespace DividingZero\LaravelDynamicSitemap\Http\Controllers;
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
 use Cache;
@@ -17,7 +16,7 @@ class SitemapController
      */
     public function index()
     {
-        $cacheKey = 'laravel_dynamic-sitemap_sitemap_xml';
+        $cacheKey = config('sitemap.cache_key');
         $cacheSeconds = config('sitemap.cache_lifetime');
 
         // Get XML from cache if enabled
