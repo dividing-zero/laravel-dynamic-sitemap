@@ -70,10 +70,11 @@ class SitemapController
 				$xml->writeElement('changefreq', $url['changefreq']);
 			}
 
-			if (!empty($url['priority'])) {
-				// number_format ensures 1.0 instead of 1
-				$xml->writeElement('priority', number_format($url['priority'], 1));
-			}
+            // Use is_numeric so that 0 or 0.0 is not skipped
+            if (is_numeric($url['priority'])) {
+                // number_format ensures 1.0 instead of 1
+                $xml->writeElement('priority', number_format($url['priority'], 1));
+            }
 
 			$xml->endElement(); // </url>
 		}
