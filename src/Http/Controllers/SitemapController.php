@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
 use Cache;
 use Carbon\Carbon;
+use XMLWriter;
 
 class SitemapController
 {
@@ -45,8 +46,44 @@ class SitemapController
         // Sort URLs by last modified date
         $urls = $urls->sortByDesc('lastmod');
 
-        // Render the sitemap
-        return view('laravel-dynamic-sitemap::sitemap', ['urls' => $urls])->render();
+		// Initialize XMLWriter
+		$xml = new XMLWriter();
+		$xml->openMemory();
+		$xml->startDocument('1.0', 'UTF-8');
+
+		// Start urlset
+		$xml->startElement('urlset');
+		$xml->writeAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+
+		// Loop through URLs and write XML elements
+		foreach ($urls as $url) {
+			$xml->startElement('url');
+
+			// Loc is required
+			$xml->writeElement('loc', $url['loc']);
+
+			if (!empty($url['lastmod'])) {
+				$xml->writeElement('lastmod', $url['lastmod']);
+			}
+
+			if (!empty($url['changefreq'])) {
+				$xml->writeElement('changefreq', $url['changefreq']);
+			}
+
+			if (!empty($url['priority'])) {
+				// number_format ensures 1.0 instead of 1
+				$xml->writeElement('priority', number_format($url['priority'], 1));
+			}
+
+			$xml->endElement(); // </url>
+		}
+
+		// End urlset and document
+		$xml->endElement(); // </urlset>
+		$xml->endDocument();
+
+		// Return the generated XML as a string
+		return $xml->outputMemory();
     }
 
     /**
